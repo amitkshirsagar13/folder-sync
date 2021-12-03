@@ -1,0 +1,99 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.7.0
+  creationTimestamp: null
+  name: foldersyncs.folders.operators.amn.siemens.com
+spec:
+  group: folders.operators.amn.siemens.com
+  names:
+    kind: FolderSync
+    listKind: FolderSyncList
+    plural: foldersyncs
+    shortNames:
+    - fs
+    singular: foldersync
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.folderName
+      name: FolderName
+      type: string
+    - jsonPath: .status.folderNameExists
+      name: FolderNameExists
+      type: bool
+    - jsonPath: .spec.subFolderCount
+      name: Desired
+      type: string
+    - jsonPath: .status.currentFolderCount
+      name: Current
+      type: string
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: FolderSync is the Schema for the foldersyncs API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: FolderSyncSpec defines the desired state of FolderSync
+            properties:
+              folderName:
+                description: FolderName is an example field of FolderSync. Edit foldersync_types.go
+                  to remove/update
+                maxLength: 8
+                minLength: 6
+                pattern: pv-*
+                type: string
+              subFolderCount:
+                default: 5
+                format: int32
+                maximum: 8
+                minimum: 3
+                type: integer
+            type: object
+          status:
+            description: FolderSyncStatus defines the observed state of FolderSync
+            properties:
+              currentFolderCount:
+                format: int32
+                type: integer
+              folderName:
+                description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
+                  of cluster Important: Run "make" to regenerate code after modifying
+                  this file'
+                type: string
+              folderNameExists:
+                type: boolean
+              subFolderCount:
+                format: int32
+                type: integer
+            required:
+            - currentFolderCount
+            - folderNameExists
+            - subFolderCount
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

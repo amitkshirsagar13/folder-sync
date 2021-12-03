@@ -1,0 +1,24 @@
+# permissions for end users to edit foldersyncs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: foldersync-editor-role
+rules:
+- apiGroups:
+  - folders.operators.amn.siemens.com
+  resources:
+  - foldersyncs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - folders.operators.amn.siemens.com
+  resources:
+  - foldersyncs/status
+  verbs:
+  - get

@@ -1,0 +1,16 @@
+domain: operators.amn.siemens.com
+layout:
+- go.kubebuilder.io/v3
+projectName: folder-sync
+repo: amn.siemens.com/m/v2
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: operators.amn.siemens.com
+  group: folders
+  kind: FolderSync
+  path: amn.siemens.com/m/v2/api/v1
+  version: v1
+version: "3"

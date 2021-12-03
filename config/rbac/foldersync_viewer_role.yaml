@@ -1,0 +1,20 @@
+# permissions for end users to view foldersyncs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: foldersync-viewer-role
+rules:
+- apiGroups:
+  - folders.operators.amn.siemens.com
+  resources:
+  - foldersyncs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - folders.operators.amn.siemens.com
+  resources:
+  - foldersyncs/status
+  verbs:
+  - get

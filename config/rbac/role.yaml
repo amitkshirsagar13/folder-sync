@@ -1,0 +1,34 @@
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - folders.operators.amn.siemens.com
+  resources:
+  - foldersyncs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - folders.operators.amn.siemens.com
+  resources:
+  - foldersyncs/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - folders.operators.amn.siemens.com
+  resources:
+  - foldersyncs/status
+  verbs:
+  - get
+  - patch
+  - update
