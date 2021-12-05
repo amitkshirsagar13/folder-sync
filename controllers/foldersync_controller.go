@@ -88,16 +88,17 @@ func (r *FolderSyncReconciler) Reconcile(ctx context.Context, req ctrl.Request) 
 		for _, f := range files {
 			fmt.Println(f.Name())
 		}
-
+		subFolderName := fmt.Sprint("")
 		if current < 5 {
 			current = current + 1
-			subFolderName := fmt.Sprint(currentWd, "/", fs.Spec.FolderName, "/", current)
-			log.Info(subFolderName)
+			subFolderName = fmt.Sprint(currentWd, "/", fs.Spec.FolderName, "/", current)
 			os.MkdirAll(subFolderName, 0777)
 		} else {
 			if current != 5 {
-				current = 0
-				error = os.Remove(fmt.Sprint(currentWd, "/", fs.Spec.FolderName))
+				for _, f := range files {
+					subFolderName = fmt.Sprint(currentWd, "/", fs.Spec.FolderName, "/", f.Name())
+				}
+				error = os.Remove(subFolderName)
 			}
 		}
 		fileLen = len(files)
